@@ -4,10 +4,20 @@ import ProductList from './components/product/ProductList.vue';
 import ProductDetails from './components/product/ProductDetails.vue';
 import AddProduct from './components/product/AddProduct.vue';
 import EditProduct from './components/product/EditProduct.vue';
+
+
+import CategoryList from './components/category/CategoryList.vue';
+import CategoryDetails from './components/category/CategoryDetails.vue';
+import AddCategory from './components/category/AddCategory.vue';
+import EditCategory from './components/category/EditCategory.vue';
+
 import Login from './components/Login.vue'; // Import the Login component
 import Register from './components/Register.vue'; // Import the Register component
 
 const routes = [
+
+
+
     {
         path: '/',
         name: 'ProductList',
@@ -32,6 +42,42 @@ const routes = [
         component: EditProduct,
         meta: { public: false } // Mark this route as private
     },
+
+
+
+    {
+        path: '/category-list',
+        name: 'CategoryList',
+        component: CategoryList,
+        meta: { public: false } // Mark this route as private
+    },
+    {
+        path: '/category/:id',
+        name: 'CategoryDetails',
+        component: CategoryDetails,
+        meta: { public: false } // Mark this route as private
+    },
+     {
+        path: '/add-category', // namplate on the door
+        name: 'AddCategory', // nickname for the room e.g playroom!
+        component: AddCategory, // actual room behind the door.
+        meta: { public: false } // Mark this route as private (special sticker on some rooms that says "Private")
+    },
+    {
+        path: '/edit-category/:id', 
+        name: 'EditCategory',
+        component: EditCategory,
+        meta: { public: false } // Mark this route as private
+    },
+
+
+
+
+
+
+
+
+
     {
         path: '/login', // Add this route
         name: 'Login',

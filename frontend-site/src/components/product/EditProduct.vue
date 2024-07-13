@@ -26,10 +26,7 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option value="" selected>Choose a category</option>
-        <option value="1">United States</option>
-        <option value="2">Canada</option>
-        <option value="3">France</option>
-        <option value="4">Germany</option>
+        <option v-for="item in categories" :key="item.id" :value="item.id">{{ item.category_name }}</option>
       </select>
 
       <p v-if="errors.category_id" class="error">{{ errors.category_id }}</p>
@@ -75,6 +72,12 @@ import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 export default {
+  data() {
+    return {
+      selectedItem: '',
+      categories: [] // Initialize items as an empty array
+    };
+  },
   setup() {
     // new control center in Vue 3, replacing data, methods v2. runs first when the component is created.
     // Creating a reactive reference to the product object and error messages
@@ -159,6 +162,32 @@ export default {
     // Exposing the reactive references and methods to be used within the template
     return { product, submitForm, errors };
   },
+  mounted() {
+    this.categoryList();
+  },
+
+  methods: {
+    async categoryList() {
+    // This is a special moment when you first turn on your magic remote. As soon as you switch it on, it immediately goes to the toy store (through the magic portal) and brings back all the toy cars to put in your toy box. Then, you can display them on your shelf.
+    try {
+      // When the component is created, fetch the categories from the API
+      const response = await axios.get("/categories");
+      // Update the categories array with the data from the API
+     // this.categories = response.data;
+
+      this.categories = response.data.map(item => ({
+          id: item.id,
+          category_name: item.category_name
+        }));
+
+    } catch (error) {
+      // If an error occurs, log it to the console
+      console.error("An error occurred while fetching the categories:", error);
+    }
+    }
+  }
+
+
 };
 </script>
 

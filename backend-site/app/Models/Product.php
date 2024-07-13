@@ -14,4 +14,13 @@ class Product extends Model
         'name', 'unit', 'price', 'category_id'
     ];
 
+    /**
+     * Get the customer that owns the price_book.
+     * @return App\Models\Employee
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
 }

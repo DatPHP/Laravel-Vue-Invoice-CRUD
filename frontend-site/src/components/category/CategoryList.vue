@@ -1,18 +1,18 @@
 <template>
   <!--This is like your shelf where you display your toy cars. -->
-  <!-- Product list container -->
+  <!-- Category list container -->
 
-  <div class="product-list">
+  <div class="category-list">
     <div class="flex justify-end pb-10">
       <div>
         <router-link
           class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-          to="/add-product"
+          to="/add-category"
         >
           <fwb-button
             class="select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            Create Product
+            Create Category
           </fwb-button>
         </router-link>
       </div>
@@ -36,35 +36,13 @@
                 <p
                   class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
                 >
-                  price
-                </p>
-              </th>
-              <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
-                <p
-                  class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
-                >
-                  Unit
-                </p>
-              </th>
-              <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
-                <p
-                  class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
-                >
-                  Category
-                </p>
-              </th>
-
-              <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
-                <p
-                  class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
-                >
                   Action
                 </p>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in products" :key="product.id">
+            <tr v-for="category in categories" :key="category.id">
               <td class="p-4 border-b border-blue-gray-50">
                 <div class="flex items-center gap-3">
                   <img
@@ -75,36 +53,13 @@
                   <p
                     class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900"
                   >
-                    {{ product.name }}
+                    {{ category.category_name }}
                   </p>
                 </div>
               </td>
               <td class="p-4 border-b border-blue-gray-50">
-                <p
-                  class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-                >
-                  {{ product.price }}
-                </p>
-              </td>
-              <td class="p-4 border-b border-blue-gray-50">
-                <p
-                  class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-                >
-                  {{ product.unit }}
-                </p>
-              </td>
-              <td class="p-4 border-b border-blue-gray-50">
-                <div class="w-max">
-                  <div
-                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20"
-                  >
-                    <span class="">{{ product?.category?.category_name }}</span>
-                  </div>
-                </div>
-              </td>
-              <td class="p-4 border-b border-blue-gray-50">
                 <div class="action-links">
-                  <!-- Link to edit the product -->
+                  <!-- Link to edit the category -->
                   <!-- Use Vue Router's 'router-link' component to create a navigation link -->
                   <!-- Use Vue's 'v-bind' directive (shorthand ':') to bind the 'to' prop with route data -->
 
@@ -115,7 +70,7 @@
                   >
                     <router-link
                       class="edit-link"
-                      :to="{ name: 'EditProduct', params: { id: product.id } }"
+                      :to="{ name: 'EditCategory', params: { id: category.id } }"
                     >
                       <span
                         class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -135,19 +90,19 @@
                     </router-link>
                   </fwb-button>
 
-                  <!-- Link to view product details -->
+                  <!-- Link to view category details -->
                   <router-link
                     class="details-link"
-                    :to="{ name: 'ProductDetails', params: { id: product.id } }"
+                    :to="{ name: 'CategoryDetails', params: { id: category.id } }"
                     >View Details</router-link
                   >
 
-                  <!-- Button to delete the product -->
-                  <!-- Use Vue's 'v-on' directive (shorthand '@') to bind the click event with the 'deleteProduct' method -->
+                  <!-- Button to delete the category -->
+                  <!-- Use Vue's 'v-on' directive (shorthand '@') to bind the click event with the 'deleteCategory' method -->
                   <!-- is a magic button. When you press it, the toy car disappears (gets deleted). -->
                   <button
                     class="delete-button"
-                    @click="deleteProduct(product.id)"
+                    @click="deleteCategory(category.id)"
                   >
                     Delete
                   </button>
@@ -169,26 +124,26 @@ export default {
   // Component data
   data() {
     return {
-      // Initialize products as an empty array
-      // This is your toy box. Right now, it's empty (products: []), but you'll fill it up with toy cars.
-      products: [],
+      // Initialize categories as an empty array
+      // This is your toy box. Right now, it's empty (categories: []), but you'll fill it up with toy cars.
+      categories: [],
     };
   },
   methods: {
     // These are special commands you can give to your magic remote.
-    // Method to delete a product
-    async deleteProduct(id) {
+    // Method to delete a category
+    async deleteCategory(id) {
       // tells the remote to remove a specific toy car from your toy box. If the car is removed successfully, it also disappears from the shelf.
       try {
         // Make a DELETE request to the API
-        await axios.delete(`/products/${id}`);
+        await axios.delete(`/categories/${id}`);
 
-        // If the request is successful, filter the deleted product out of the products array
+        // If the request is successful, filter the deleted category out of the categories array
         //   If the toy car's sticker number is NOT "5", the magic remote keeps it. But if it finds the toy car with sticker number "5", it takes it out of the toy box.
-        this.products = this.products.filter((product) => product.id !== id);
+        this.categories = this.categories.filter((category) => category.id !== id);
       } catch (error) {
         // If an error occurs, log it to the console
-        console.error("An error occurred while deleting the product:", error);
+        console.error("An error occurred while deleting the category:", error);
       }
     },
   },
@@ -196,40 +151,25 @@ export default {
   async created() {
     // This is a special moment when you first turn on your magic remote. As soon as you switch it on, it immediately goes to the toy store (through the magic portal) and brings back all the toy cars to put in your toy box. Then, you can display them on your shelf.
     try {
-      // When the component is created, fetch the products from the API
-      const response = await axios.get("/products");
-      // Update the products array with the data from the API
-      var products_list = response.data;
-      this.products = products_list;
+      // When the component is created, fetch the categories from the API
+      const response = await axios.get("/categories");
+      // Update the categories array with the data from the API
+      this.categories = response.data;
     } catch (error) {
       // If an error occurs, log it to the console
-      console.error("An error occurred while fetching the products:", error);
+      console.error("An error occurred while fetching the categories:", error);
     }
   },
 };
 </script>
 
 <style scoped>
-.product-list {
+.category-list {
   max-width: 1250px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
-}
-
-.product-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  margin: 8px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.product-name {
-  font-weight: bold;
-  font-size: 1.1em;
 }
 
 .action-links {

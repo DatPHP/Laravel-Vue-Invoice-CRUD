@@ -24,9 +24,9 @@
               </router-link>
               <router-link
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                to="/add-product"
+                to="/category-list"
                 v-if="isLoggedIn"
-                >Add Product</router-link
+                >Category</router-link
               >
               <router-link
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"

@@ -22,10 +22,7 @@
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     >
       <option value="" selected>Choose a category</option>
-      <option value="1">United States</option>
-      <option value="2">Canada</option>
-      <option value="3">France</option>
-      <option value="4">Germany</option>
+      <option v-for="item in categories" :key="item.id" :value="item.id">{{ item.category_name }}</option>
     </select>
     <!-- Error message for the product description -->
     <!-- Displayed if 'errors.description' is truthy -->
@@ -75,9 +72,32 @@ export default {
       price: "",
       // Validation errors
       errors: {},
+      categories:[]
     };
   },
+  mounted() {
+    this.categoryList();
+  },
   methods: {
+    async categoryList() {
+    // This is a special moment when you first turn on your magic remote. As soon as you switch it on, it immediately goes to the toy store (through the magic portal) and brings back all the toy cars to put in your toy box. Then, you can display them on your shelf.
+    try {
+      // When the component is created, fetch the categories from the API
+      const response = await axios.get("/categories");
+      // Update the categories array with the data from the API
+     // this.categories = response.data;
+
+      this.categories = response.data.map(item => ({
+          id: item.id,
+          category_name: item.category_name
+        }));
+
+    } catch (error) {
+      // If an error occurs, log it to the console
+      console.error("An error occurred while fetching the categories:", error);
+    }
+  },
+
     // special toy tools or magic wands that let us do things with our toys.
     // Validate the input fields
     validateInput() {

@@ -19,7 +19,11 @@ class ProductController extends Controller
     {
         // Use Laravel's response helper to return a JSON response containing all 'Product' records.
         // The second parameter, 200, is the HTTP status code for OK.
-        return response()->json(Product::all(), 200);
+
+       
+        $product_list = Product::with('category')->get();
+
+        return response()->json($product_list, 200);
     }
 
     // Another doc block comment to describe the following method.

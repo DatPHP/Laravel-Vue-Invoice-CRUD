@@ -37,9 +37,7 @@ class CategoryController extends Controller
         // 'description' and 'price' should be present.
         // 'price' should also be a valid numeric value.
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'category_id' => 'required',
-            'price' => 'required|numeric',
+            'category_name' => 'required|max:255',
         ]);
     
         try {  
@@ -87,9 +85,7 @@ class CategoryController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'category_id' => 'required',
-            'price' => 'required|numeric',
+            'category_name' => 'required|max:255',
         ]);
 
         $inputData = $request->all();
