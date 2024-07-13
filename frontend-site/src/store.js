@@ -18,7 +18,10 @@ export default createStore({
     },
     // Mutation to set isLoggedIn to false
     LOGOUT(state) {
-      state.isLoggedIn = false
+      state.isLoggedIn = false;
+      if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+      }
     }
   },  
   // Actions are functions that cause side effects and can involve 
