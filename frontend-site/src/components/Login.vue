@@ -7,6 +7,9 @@
     <form @submit.prevent="login" class="login-form">
       <!-- Input field for the user's email address -->
       <input type="email" v-model="email" placeholder="Email" required />
+     <div v-if="errors.message" class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+        <p>{{ errors.message }}</p>
+      </div>
       <!-- Input field for the user's password -->
       <input
         type="password"
@@ -23,6 +26,7 @@
 <script>
 // Import axios instance for HTTP requests
 import axios from "@/axios";
+import { ref } from "vue";
 
 export default {
   data() {
@@ -30,6 +34,7 @@ export default {
       // Initialize form input data
       email: "",
       password: "",
+      errors : ""
     };
   },
   methods: {
@@ -56,6 +61,8 @@ export default {
       } catch (error) {
         // Log any errors encountered during the login process
         console.error("An error occurred:", error);
+        this.errors = error.response.data;
+        // console.error(error.data.errors.message);
       }
     },
   },

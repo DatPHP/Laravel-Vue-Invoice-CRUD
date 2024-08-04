@@ -11,6 +11,8 @@ import CategoryDetails from './components/category/CategoryDetails.vue';
 import AddCategory from './components/category/AddCategory.vue';
 import EditCategory from './components/category/EditCategory.vue';
 
+import invoice from './components/invoice/Invoice.vue';
+
 import Login from './components/Login.vue'; // Import the Login component
 import Register from './components/Register.vue'; // Import the Register component
 
@@ -71,11 +73,12 @@ const routes = [
     },
 
 
-
-
-
-
-
+    {
+        path: '/invoice', // namplate on the door
+        name: 'invoice', // nickname for the room e.g playroom!
+        component: invoice, // actual room behind the door.
+        meta: { public: false } // Mark this route as private (special sticker on some rooms that says "Private")
+    },
 
 
     {

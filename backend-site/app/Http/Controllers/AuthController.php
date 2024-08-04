@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request; // For handling HTTP requests
 use Illuminate\Support\Facades\Auth; // For handling authentication
 use App\Models\User; // User model
+use Mail; // library related to mail
+use App\Mail\SuccessfulAccountRegister; // mail class to send  
 
 // Define AuthController class which extends Controller
 class AuthController extends Controller
@@ -17,7 +19,8 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255', // Name must be a string, not exceed 255 characters and it is required
             'email' => 'required|string|email|max:255|unique:users', // Email must be a string, a valid email, not exceed 255 characters, it is required and it must be unique in the users table
-            'password' => 'required|string|min:6', // Password must be a string, at least 6 characters and it is required
+            'password' => 'required|string|min:6|confirmed', // Password must be a string, at least 6 characters and it is required
+            'password_confirmation' => 'required| min:6'
         ]);
 
         // Create new User
@@ -27,6 +30,10 @@ class AuthController extends Controller
             'password' => bcrypt($request->password), // Hash the password
         ]);
 
+        if($user){
+           Mail::to('nguyenvandat170296@gmail.com')->send(new SuccessfulAccountRegister($user));
+        }
+        
         // Return user data as JSON with a 201 (created) HTTP status code
         return response()->json(['user' => $user], 201);
     }
@@ -36,7 +43,7 @@ class AuthController extends Controller
     {
         // Validate incoming request fields
         $request->validate([
-            'email' => 'required|string|email', // Email must be a string, a valid email and it is required
+            'email' => 'required|string|email|exists:users', // Email must be a string, a valid email and it is required
             'password' => 'required|string', // Password must be a string and it is required
         ]);
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 // Begin the declaration of the ProductController class, which extends the base Controller class.
 class ProductController extends Controller
@@ -35,6 +36,10 @@ class ProductController extends Controller
     // The 'store' method is used to validate the incoming request and create a new 'Product'.
     public function store(Request $request)
     {
+
+        // dd('Hi Henry');
+        // exit;
+
         // Validate the incoming HTTP request with the given rules.
         // 'name' should be present and should not exceed 255 characters.
         // 'description' and 'price' should be present.
@@ -48,6 +53,13 @@ class ProductController extends Controller
         try {  
 
         $inputData = $request->all();
+
+        if ($image = $request->file('image')) {
+            $imageName = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('product/image', $image,$imageName);
+            $inputData['image'] = "$imageName";
+        }
+
         // Create a new 'Product' record in the database with the validated data.
         $product = Product::create($inputData);
         return response()->json([
@@ -96,6 +108,23 @@ class ProductController extends Controller
         ]);
 
         $inputData = $request->all();
+
+        if ($image = $request->file('image')) {
+            // remove old image
+            if($product->image){
+                $exists = Storage::disk('public')->exists("product/image/{$product->image}");
+                if($exists){
+                    Storage::disk('public')->delete("product/image/{$product->image}");
+                }
+            }
+            
+            $imageName = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('product/image', $image,$imageName);
+
+            $inputData['image'] = "$imageName";
+        }else{
+            unset($inputData['image']);
+        }
     
         // Check if the product was found
         if ($product) {

@@ -5,12 +5,23 @@
       <!-- Name, email, and password inputs -->
       <input type="text" v-model="name" placeholder="Name" required />
       <input type="email" v-model="email" placeholder="Email" required />
+      <div v-if="errors.message" class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+        <p>{{ errors.message }}</p>
+      </div>
       <input
         type="password"
         v-model="password"
         placeholder="Password"
         required
       />
+
+      <input
+        type="password"
+        v-model="password_confirmation"
+        placeholder="Confirmed Password"
+        required
+      />
+
       <!-- Submit button -->
       <button type="submit">Register</button>
     </form>
@@ -19,6 +30,7 @@
 
 <script>
 import axios from "@/axios";
+import { useRouter } from "vue-router"; 
 
 export default {
   data() {
@@ -27,6 +39,9 @@ export default {
       name: "",
       email: "",
       password: "",
+      password_confirmation: "",
+      errors: "",
+      router : useRouter()
     };
   },
   methods: {
@@ -39,13 +54,16 @@ export default {
           name: this.name,
           email: this.email,
           password: this.password,
+          password_confirmation: this.password_confirmation
         });
+        this.router.push("/login");
         // Here you could handle the response, for example, store the received token,
         // update the 'isLoggedIn' state, and redirect to the dashboard or any other page
       } catch (error) {
         console.error("An error occurred:", error);
         if (error.response) {
           console.error("Error details:", error.response.data);
+          this.errors = error.response.data;
         }
       }
     },

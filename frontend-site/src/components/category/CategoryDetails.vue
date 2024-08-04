@@ -4,7 +4,7 @@
   <!--This is like a magic switch. If we have a toy car (category details), the stand lights up and shows the toy. If not, it stays empty.-->
   <div v-if="category" class="category-details">
     <!-- Display the category name -->
-    <h2 class="category-title">{{ category.name }}</h2>
+    <h2 class="category-title">{{ category.category_name }}</h2>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     const categoryId = this.$route.params.id; // This is like a magic number that tells us which toy car we want. Maybe it's toy car number 5 or number 10
     try {
       // Make a GET request to the API to fetch the category data
-      const response = await axios.get(`/categorys/${categoryId}`); // our magic remote goes to the toy store and asks, 'Hey, can you tell me about toy car number 5?
+      const response = await axios.get(`/categories/${categoryId}`); // our magic remote goes to the toy store and asks, 'Hey, can you tell me about toy car number 5?
       // Update the category data with the data from the API
       this.category = response.data; // Once the toy store tells us about the toy car, we put that toy car in our special 'category' box. Now, our display stand lights up and shows off the toy car!"
     } catch (error) {

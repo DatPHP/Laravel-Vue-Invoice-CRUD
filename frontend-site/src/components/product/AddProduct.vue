@@ -51,6 +51,13 @@
     <!-- Error message for the product price -->
     <!-- Displayed if 'errors.price' is truthy -->
     <p v-if="errors.price" class="error">{{ errors.price }}</p>
+    
+    <input accept="image/*" type="file" @change="previewFiles($event)" />
+    <img
+      alt=""
+      :src="newImage || 'https://www.namepros.com/attachments/empty-png.89209/'"
+    />
+
     <!-- Button for submitting the form -->
     <button type="submit" class="submit-button">Add Product</button>
   </form>
@@ -72,7 +79,9 @@ export default {
       price: "",
       // Validation errors
       errors: {},
-      categories:[]
+      categories:[],
+      newImage: "",
+      image: "",
     };
   },
   mounted() {
@@ -134,6 +143,7 @@ export default {
         formData.append("category_id", this.category_id);
         formData.append("unit", this.unit);
         formData.append("price", this.price);
+        formData.append('image', this.image);
         // await axios.post('/products', formData);
         await axios
           .post(`/products`, formData)
@@ -157,6 +167,22 @@ export default {
         console.error("An error occurred while adding the product:", error);
       }
     },
+
+    //upload image 
+    async previewFiles(event) {
+     // console.log('Hello Henry');
+     
+      const file = event.target.files[0];
+      this.image = file;
+     
+      const theReader = new FileReader();
+      theReader.onloadend = async () => {
+        this.newImage = await theReader.result;
+      };
+      theReader.readAsDataURL(file);
+      
+    }
+
   },
 };
 </script>
