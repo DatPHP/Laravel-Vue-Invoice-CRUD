@@ -5,16 +5,9 @@
   <div class="product-list">
     <div class="flex justify-end pb-10">
       <div>
-        <router-link
-          class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-          to="/add-product"
-        >
-          <fwb-button
-            class="select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            Create Product
-          </fwb-button>
-        </router-link>
+        <v-btn variant="outlined">
+          <router-link to="/add-product"> Create Product </router-link>
+        </v-btn>
       </div>
     </div>
 

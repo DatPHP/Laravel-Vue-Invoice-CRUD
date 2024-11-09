@@ -1,10 +1,9 @@
 <template>
-  <!-- Importing and using Navbar component -->
-  <Navbar />
+  <!-- Wrap all elements within a single root element -->
   <div id="app">
-    <!--just like you'd place your toys on that mat to play, Vue sets up and displays its components inside this <div>-->
+    <!-- Importing and using Navbar component -->
+    <Navbar />
     <!-- Insertion point for views based on the current route -->
-    <!-- When navigating to different URLs, different content will be displayed here -->
     <router-view />
   </div>
 </template>

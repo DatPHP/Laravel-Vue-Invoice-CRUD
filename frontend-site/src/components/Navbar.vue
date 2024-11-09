@@ -5,11 +5,18 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img
+            <!-- <img
               class="h-8 w-8"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
               alt="Workflow"
-            />
+            /> -->
+
+            <img
+                    class="h-8 w-8 rounded-full"
+                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                    alt=""
+                  />
+
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">

@@ -5,19 +5,11 @@
   <div class="category-list">
     <div class="flex justify-end pb-10">
       <div>
-        <router-link
-          class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-          to="/add-category"
-        >
-          <fwb-button
-            class="select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            Create Category
-          </fwb-button>
-        </router-link>
+        <v-btn variant="outlined">
+          <router-link to="/add-category"> Create Category </router-link>
+        </v-btn>
       </div>
     </div>
-
     <div
       class="relative flex flex-col w-full h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border"
     >
@@ -70,7 +62,10 @@
                   >
                     <router-link
                       class="edit-link"
-                      :to="{ name: 'EditCategory', params: { id: category.id } }"
+                      :to="{
+                        name: 'EditCategory',
+                        params: { id: category.id },
+                      }"
                     >
                       <span
                         class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -93,7 +88,10 @@
                   <!-- Link to view category details -->
                   <router-link
                     class="details-link"
-                    :to="{ name: 'CategoryDetails', params: { id: category.id } }"
+                    :to="{
+                      name: 'CategoryDetails',
+                      params: { id: category.id },
+                    }"
                     >View Details</router-link
                   >
 
@@ -140,7 +138,9 @@ export default {
 
         // If the request is successful, filter the deleted category out of the categories array
         //   If the toy car's sticker number is NOT "5", the magic remote keeps it. But if it finds the toy car with sticker number "5", it takes it out of the toy box.
-        this.categories = this.categories.filter((category) => category.id !== id);
+        this.categories = this.categories.filter(
+          (category) => category.id !== id
+        );
       } catch (error) {
         // If an error occurs, log it to the console
         console.error("An error occurred while deleting the category:", error);
