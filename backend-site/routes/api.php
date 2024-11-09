@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Defines all CRUD routes for the 'products' resource using Laravel's API resource routing.
 Route::apiResource('products', ProductController::class); 
 Route::apiResource('categories', CategoryController::class); 
+
+Route::get('/get_all_invoice', [InvoiceController::class, 'get_all_invoice']);
 
 // Defines a POST route for user registration, handled by the 'register' method in the AuthController.
 Route::post('/register', [AuthController::class, 'register']); 
