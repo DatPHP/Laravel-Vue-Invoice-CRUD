@@ -11,11 +11,7 @@
               alt="Workflow"
             /> -->
 
-            <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                    alt=""
-                  />
+            <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
 
           </div>
           <div class="hidden md:block">
@@ -41,6 +37,14 @@
                 v-if="isLoggedIn"
                 >Product List</router-link
               >
+
+              <router-link
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                to="/invoice"
+                v-if="isLoggedIn"
+                >Invoices</router-link
+              >
+
             </div>
           </div>
         </div>
@@ -117,7 +121,7 @@
               <div
                 id="dropdownDivider"
                 v-show="show"
-                class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"

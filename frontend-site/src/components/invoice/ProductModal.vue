@@ -20,11 +20,11 @@
         </label>
         <label class="block mb-4">
           Price:
-          <input v-model.number="product.price" type="number" min="0" class="border p-2 rounded w-full"/>
+          <input v-model.price="product.price" type="number" min="0" class="border p-2 rounded w-full"/>
         </label>
         <label class="block mb-4">
           Quantity:
-          <input v-model.number="product.quantity" type="number" min="1" class="border p-2 rounded w-full"/>
+          <input v-model.quantity="product.quantity" type="number" min="1" class="border p-2 rounded w-full"/>
         </label>
         <div class="flex justify-end">
           <button @click="$emit('close')" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
@@ -39,8 +39,8 @@
     props: ['product'],
     data() {
       return {
-        editMode: !!this.product,
-        product: this.product || {
+        editMode: false,
+        product: {
           category: 'Apple',
           name: '',
           unit: '',
@@ -50,13 +50,20 @@
         }
       };
     },
-    mounted() {
-      //this. saveProduct();
+    created() {
+      if (this.product) {
+        this.editMode = true;
+        this.product = { ...this.product };
+      }
     },
     methods: {
-        async saveProduct() {
-        console.log(this.product);
+      async saveProduct() {
+        if (!this.product) return;
+        
         this.product.amount = this.product.price * this.product.quantity;
+
+        console.log(this.product);
+
         this.$emit('save', this.product);
         this.$emit('close');
       }

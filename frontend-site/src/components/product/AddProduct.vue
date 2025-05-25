@@ -41,6 +41,7 @@
       <option value="kg">kg</option>
       <option value="pcs">pcs</option>
       <option value="pack">pack</option>
+      <option value="item">item</option>
     </select>
     <!-- Error message for the product description -->
     <!-- Displayed if 'errors.description' is truthy -->

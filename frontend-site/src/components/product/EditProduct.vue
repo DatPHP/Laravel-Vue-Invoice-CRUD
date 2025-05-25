@@ -44,9 +44,7 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option value="">Choose a unit</option>
-        <option value="kg">kg</option>
-        <option value="pcs">pcs</option>
-        <option value="pack">pack</option>
+        <option v-for="unit in units" :key="unit" :value="unit">{{ unit }}</option>
       </select>
 
       <!-- Error message for the product description -->
@@ -111,6 +109,8 @@ export default {
     const newProduct = reactive({
         image: null,
     });
+
+    const units = ref(['item', 'kg', 'pcs', 'pack']);
 
     const categoryList = async () => {
       // This is a special moment when you first turn on your magic remote. As soon as you switch it on, it immediately goes to the toy store (through the magic portal) and brings back all the toy cars to put in your toy box. Then, you can display them on your shelf.
@@ -234,6 +234,7 @@ export default {
       product,
       imagePreview,
       categories,
+      units,
       errors,
       validateInput,
       submitForm,
